@@ -114,6 +114,32 @@ public class MyDBHandler extends SQLiteOpenHelper {
     }
 
 
+    //Print databse to string
+    public String databaseToString()
+    {
+        String dbString = "";
+
+        //write to the database
+        SQLiteDatabase db = getWritableDatabase();
+        String query =  "SELECT * FROM " + TABLE_PRODUCTS + " WHERE 1";
+
+        //Cursor point to a location in your result
+        Cursor c = db.rawQuery(query, null);
+        //move to the first row in your results
+        c.moveToFirst();
+
+        while(!c.isAfterLast())
+        {
+            if (c.getString(c.getColumnIndex("ExerciseName"))!=null)
+            {
+                dbString += c.getString(c.getColumnIndex("ExerciseName"));
+                dbString += "\n";
+            }
+        }
+        db.close();
+        return dbString;
+
+    }
 
 
 }
